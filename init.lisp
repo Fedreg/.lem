@@ -3,14 +3,14 @@
 (in-package :lem-user)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Looks 
+;; Looks
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (load-library "pygments-colorthemes")
-(load-theme   "monokai")
+(load-theme   "native")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Vars 
+;; Vars
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setf *scroll-recenter-p* t)
@@ -18,7 +18,7 @@
 (setf (variable-value 'lem.line-numbers:line-numbers :global) nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Init Modes 
+;; Init Modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; VI
@@ -30,12 +30,16 @@
                 (when (eq (buffer-major-mode buffer) 'lem-lisp-mode:lisp-mode)
                   (change-buffer-mode buffer 'lem-paredit-mode:paredit-mode t))))
 
+;; AUTO-SAVE
+(lem.auto-save:auto-save-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Keybindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; General
 (define-key lem:*global-keymap* "Space f f" 'lem:find-file)
+(define-key lem:*global-keymap* "Space b s" 'lem:save-buffer)
 (define-key lem:*global-keymap* "Space b b" 'lem:switch-to-buffer)
 
 ;; VI
@@ -46,4 +50,3 @@
 ;; CL
 (define-key lem-lisp-mode:*lisp-mode-keymap* "Space e e" 'lem-lisp-mode:lisp-eval-last-expression)
 (define-key lem-lisp-mode:*lisp-mode-keymap* "Space e f" 'lem-lisp-mode:lisp-load-file)
-
